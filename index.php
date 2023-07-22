@@ -11,7 +11,9 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+<style>
+  .subrayado{ text-decoration:line-through;}
+</style>
 </head>
 
 <body>
@@ -32,7 +34,8 @@
          <label for="Tarea" class="form-label">Tarea</label>
          <input type="text"
            class="form-control"
-           name="Tarea" id="Tarea" 
+           name="Tarea" 
+           id="Tarea" 
            aria-describedby="helpId" 
            placeholder="Escriba su tarea">
 
@@ -55,11 +58,27 @@
 <?php foreach($registros as $registro){  ?>
    <li class="list-group-item">
         
-     <input class="form-check-input float-start" type="checkbox" value="" id="" checked>
-        &nbsp; &nbsp; <span class="float-start"> <?php echo $registro['Tarea']; ?> </span>
+    <form action="" method="post">
+    <input
+    type="hidden"
+    name="id"
+    value="<?php echo $registro['Id'];?>">
 
+     <input
+     class="form-check-input float-start"
+     type="checkbox"
+     name="completado"
+     value="<?php echo $registro['Completada'];?>"
+     id=""
+     onChange="this.form.submit()"
+     <?php echo $registro['Completada'] == 1 ? 'checked' : '' ?>>
+     
+    </form>
+
+     &nbsp; &nbsp; 
+      <span class="float-start <?php echo ($registro['Completada']) == 1 ? 'subrayado' : '';?>"> <?php echo $registro['Tarea']; ?> </span>  
      <h6 class="float-start"> 
-        &nbsp; <span class="badge bg-danger"> X </span></a>
+        &nbsp;<a href="?id=<?php echo $registro['Id']; ?>"> <span class="badge bg-danger"> X </span></a>
      </h6>    
    </li>
 
